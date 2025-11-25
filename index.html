@@ -18,6 +18,14 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
     <!-- Fonts + Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -31,12 +39,41 @@
             --bg-light: #f8f9fa;
             --border-color: #dee2e6;
             --max-width: 1100px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: white;
-            margin: 0;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        /* Skip to main content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .skip-link:focus {
+            top: 0;
         }
 
         /* NAV */
@@ -46,7 +83,9 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
+        
         .nav-container {
             max-width: var(--max-width);
             margin: auto;
@@ -55,24 +94,69 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .nav-logo {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--primary-color);
             text-decoration: none;
+            transition: color 0.3s;
         }
+        
+        .nav-logo:hover {
+            color: var(--secondary-color);
+        }
+        
         .nav-menu {
             list-style: none;
             display: flex;
             gap: 1.5rem;
+            margin: 0;
+            padding: 0;
         }
+        
         .nav-link {
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
         }
-        .nav-link:hover {
+        
+        .nav-link:hover,
+        .nav-link:focus {
             color: var(--secondary-color);
+        }
+
+        /* Hamburger menu for mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+            display: block;
+        }
+        
+        .hamburger[aria-expanded="true"] span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .hamburger[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger[aria-expanded="true"] span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         /* Layout */
@@ -87,67 +171,177 @@
             display: flex;
             gap: 2rem;
             align-items: center;
-            padding: 3rem 0;
+            padding: 2.5rem 0;
         }
+        
         .profile-img {
             width: 180px;
             height: 180px;
             border-radius: 50%;
             background: #ccc;
             object-fit: cover;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
         }
+        
         .profile-info h1 {
             font-size: 2.4rem;
-            margin-bottom: .3rem;
+            margin-bottom: 0.2rem;
             color: var(--primary-color);
+            line-height: 1.1;
         }
-        .title { font-size: 1.2rem; color: var(--text-dark); }
-        .affiliation { color: var(--text-light); margin-top: .4rem; }
+        
+        .title {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+            line-height: 1.3;
+        }
+        
+        .affiliation {
+            color: var(--text-light);
+            margin-top: 0.2rem;
+            line-height: 1.3;
+        }
 
         /* Social */
         .social-links {
             display: flex;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
         }
+        
         .social-links a {
             color: var(--text-light);
-            padding: .3rem;
+            padding: 0.3rem;
             font-size: 1.4rem;
+            transition: color 0.3s, transform 0.3s;
         }
-        .social-links a:hover {
+        
+        .social-links a:hover,
+        .social-links a:focus {
             color: var(--secondary-color);
+            transform: translateY(-2px);
         }
 
         /* Sections */
-        section { padding: 2.5rem 0; }
+        section {
+            padding: 2rem 0;
+        }
+        
         section h2 {
             color: var(--primary-color);
             font-size: 1.9rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             border-bottom: 2px solid var(--secondary-color);
             display: inline-block;
-            padding-bottom: .3rem;
+            padding-bottom: 0.3rem;
         }
-        p { color: var(--text-dark); line-height: 1.7; }
+        
+        p {
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 0.8rem;
+        }
+        
+        p a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--secondary-color);
+            transition: opacity 0.3s;
+        }
+        
+        p a:hover,
+        p a:focus {
+            opacity: 0.8;
+        }
 
         /* News */
-        .news-list { list-style: none; padding-left: 0; }
-        .news-list li { padding: .5rem 0; border-bottom: 1px solid var(--border-color); }
-        .news-list .date { color: var(--secondary-color); font-weight: 600; margin-right: .5rem; }
+        .news-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .news-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            line-height: 1.4;
+        }
+        
+        .news-list .date {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
 
         /* Publications */
         .pub-item {
-            padding: 1.2rem;
+            padding: 1.3rem;
             background: var(--bg-light);
             border-radius: 8px;
-            margin-bottom: 1.4rem;
+            margin-bottom: 1.2rem;
+            transition: box-shadow 0.3s;
         }
+        
+        .pub-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
         .pub-item h3 {
-            margin: 0 0 .5rem 0;
+            margin: 0 0 0.4rem 0;
             color: var(--primary-color);
+            font-size: 1.1rem;
+            line-height: 1.3;
         }
-        .pub-item .venue { color: var(--text-light); }
+        
+        .pub-item h3 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .pub-item h3 a:hover,
+        .pub-item h3 a:focus {
+            color: var(--secondary-color);
+        }
+        
+        .pub-item .venue {
+            color: var(--text-light);
+            margin-bottom: 0.2rem;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        .pub-item .authors {
+            color: var(--text-dark);
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        /* Publication links */
+        .pub-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.6rem;
+        }
+        
+        .pub-link {
+            padding: 0.25rem 0.75rem;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        .pub-link:hover,
+        .pub-link:focus {
+            background: var(--primary-color);
+            transform: translateY(-1px);
+        }
 
         .badge {
             display: inline-block;
@@ -165,56 +359,228 @@
             background: var(--primary-color);
             color: white;
             text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        footer p {
+            color: white;
+            margin: 0;
+        }
+
+        /* Mobile Responsive Design */
+        @media screen and (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 60px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 2rem;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transition: 0.3s;
+                border-top: 1px solid var(--border-color);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .hero {
+                gap: 1.5rem;
+                padding: 1.5rem 0;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .profile-info h1 {
+                font-size: 1.8rem;
+            }
+            
+            .title {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 1.5rem 0;
+            }
+            
+            section h2 {
+                font-size: 1.6rem;
+            }
+            
+            .pub-item {
+                padding: 1rem;
+            }
+            
+            .pub-item h3 {
+                font-size: 1rem;
+            }
+            
+            .pub-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero {
+                gap: 1rem;
+            }
+            
+            .profile-img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-info h1 {
+                font-size: 1.5rem;
+            }
+            
+            .title {
+                font-size: 0.95rem;
+            }
+            
+            .affiliation {
+                font-size: 0.9rem;
+            }
+            
+            .social-links {
+                gap: 0.75rem;
+            }
+            
+            .social-links a {
+                font-size: 1.2rem;
+                padding: 0.2rem;
+            }
+            
+            .pub-item {
+                padding: 0.9rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .navbar,
+            .social-links,
+            .pub-links,
+            footer {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #000;
+                --secondary-color: #0066cc;
+                --text-dark: #000;
+                --text-light: #444;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <a class="nav-logo" href="#">Yotam Liel</a>
-            <ul class="nav-menu">
+            
+            <button class="hamburger" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="nav-menu">
                 <li><a class="nav-link" href="#">Home</a></li>
                 <li><a class="nav-link" href="#publications">Publications</a></li>
-                <li><a class="nav-link" href="cv.pdf" target="_blank">CV</a></li>
+                <li><a class="nav-link" href="cv.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>
             </ul>
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container" id="main" role="main">
 
         <!-- HERO -->
         <section class="hero">
-            <img src="profile.jpg" class="profile-img" alt="Profile">
+            <img src="profile.jpg" class="profile-img" alt="Yotam Liel profile photo" loading="lazy">
 
             <div class="profile-info">
                 <h1>Yotam Liel</h1>
                 <p class="title">Postdoctoral Research Fellow, Cornell Tech</p>
                 <p class="affiliation">Cornell University, New York</p>
 
-                <div class="social-links">
-                    <a href="mailto:yl4363@cornell.edu"><i class="fas fa-envelope"></i></a>
+                <div class="social-links" role="list">
+                    <a href="/cdn-cgi/l/email-protection#c5bca9f1f6f3f685a6aab7aba0a9a9eba0a1b0" aria-label="Email Yotam Liel" role="listitem">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                    </a>
 
                     <!-- Google Scholar icon -->
-                    <a href="https://scholar.google.com/citations?user=1L_Vy-8AAAAJ&hl=en&inst=2457744612629960019" target="_blank">
-                        <i class="fas fa-graduation-cap"></i>
+                    <a href="https://scholar.google.com/citations?user=1L_Vy-8AAAAJ&hl=en&inst=2457744612629960019" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       aria-label="Google Scholar profile" 
+                       role="listitem">
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
                     </a>
 
                     <!-- LinkedIn -->
-                    <a href="https://www.linkedin.com/in/yotam-liel/" target="_blank">
-                        <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/yotam-liel/" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       aria-label="LinkedIn profile" 
+                       role="listitem">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- ABOUT -->
-        <section>
+        <section aria-label="About">
             <p>
                 I am a Postdoctoral Research Fellow at Cornell Tech, Cornell University, working 
-                with Prof. Mor Naaman as part of the <a href="https://s.tech.cornell.edu/" target="_blank">Social Technologies Lab</a>.
+                with Prof. Mor Naaman as part of the <a href="https://s.tech.cornell.edu/" target="_blank" rel="noopener noreferrer">Social Technologies Lab</a>.
                 I study how AI and algorithmic systems shape human judgment, work, and social interaction.
                 My research examines when people conform to or resist AI advice, how these systems reshape
                 opinions and human relationships, and when classic social psychology theories apply and
@@ -223,13 +589,13 @@
             </p>
             <p>
                 I completed my PhD at Tel Aviv University, where I was advised by Prof. Lior Zalmanson 
-                and part of the <a href="https://aimlab.sites.tau.ac.il/" target="_blank">AIMLAB</a>,
+                and part of the <a href="https://aimlab.sites.tau.ac.il/" target="_blank" rel="noopener noreferrer">AIMLAB</a>,
                 and a fellow at Tel Aviv University's Center for AI and Data Science.
             </p>
         </section>
 
         <!-- NEWS -->
-        <section>
+        <section aria-label="Recent News">
             <h2>Recent News</h2>
             <ul class="news-list">
                 <li><span class="date">2025</span> Joined Cornell Tech as a Postdoctoral Research Fellow (Social Technologies Lab).</li>
@@ -239,56 +605,112 @@
         </section>
 
         <!-- PUBLICATIONS -->
-        <section id="publications">
+        <section id="publications" aria-label="Publications">
             <h2>Publications</h2>
 
-            <!-- NEW: Short one-line sentence -->
-            <p style="margin-bottom:1.5rem;">
+            <!-- Short one-line sentence with Google Scholar link -->
+            <p style="margin-bottom:1rem;">
                 Most recent publications on
-                <a href="https://scholar.google.com/citations?user=1L_Vy-8AAAAJ&hl=en&inst=2457744612629960019" target="_blank">Google Scholar</a>.
+                <a href="https://scholar.google.com/citations?user=1L_Vy-8AAAAJ&hl=en&inst=2457744612629960019" 
+                   target="_blank" 
+                   rel="noopener noreferrer">Google Scholar</a>.
             </p>
 
-            <div class="pub-item">
+            <article class="pub-item">
                 <h3>
-                    Turning Off Your Better Judgment: Algorithmic Conformity in Artificial Intelligence–Human Collaboration
+                    <a href="https://www.tandfonline.com/doi/full/10.1080/07421222.2024.2423605" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        Turning Off Your Better Judgment: Algorithmic Conformity in Artificial Intelligence–Human Collaboration
+                    </a>
                 </h3>
                 <p class="venue">Journal of Management Information Systems, 2025</p>
                 <p class="authors">Yotam Liel &amp; Lior Zalmanson</p>
-            </div>
+                <div class="pub-links">
+                    <a href="https://download.ssrn.com/2025/9/21/5514199.pdf?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQD3j5XRa93rgk6ji7OIutyto5Vzeif1p50MnSYlk%2FE8AQIhAOHxeuv5QFcu44EB4xuB5lgElX3MxiK%2BQHSaczm5unjQKr0FCHcQBBoMMzA4NDc1MzAxMjU3IgxuncORUOB7P1TnkA0qmgUsjrK1FOwEFV75nGmkWJgiF9sVY7zav330%2F91MTAfvo%2F5sJ%2F0ARnXH5qAtTFSaFcUq%2FlFO4mQe9FmZBxJuMjEgWuHr3kTNHD711RBTC9j3pY7AXsQYJU8OVzJjM2uNbE0diLUIlV2TUI0hnhkLZVe%2FVcTpUFa%2Bp6kBzB%2Fxc6s7WykpxRoNuvBKuwLXbR213PhWY7a7D3XUH7sjr2WizUJW3bL0JdcPJ3ocFym8uNTH796JPzUB%2BJtzrFrHXxXUwrGNXxH6XfB3fLtkuY3zUV9TyIFqFLoeXlh4YLKagNyoTlFVecuth5TjI%2BlMtdI8LR8vGMqRXQHfbXRMVhVNfEWZouOruGKuFyWqZXvi1XlZ61vaXkx89alsZrIM0JskRmsGltajX22F14R91%2Fr%2BYu0B%2Brj1T%2BXekxsbuTw2fVivnsZof1%2B3OB8ohJXYEM1BxrgdNoLU%2BcLv3l1rukMyWiu0ryLwEseBhGBcKul1Dk7c66ltr7FysnhC29K1aWT8KYuPbHtrUMgDhTSVLv2tatHGlqx5qGFCWTcp0ERie%2F%2FT52rGZB7AJZKCzxrsTlt0UY1N%2ByFNgRzOR%2FMjj3IhfqxVFf4v1bG9UqUBpo1oCtjKmrGFeg5z2ysy3vBts9c%2BdKpxtEfMe8SxeOVHpYovqD4nDvDizLcwvMP8ZI3rmsESYrvQXBmP2DULnXuu90mn1HBAwBNUCzpgCZ1e91dUHR1P7QV%2FC3jVXirqcENCLgXKHXcV8XiQ6TTroAeCN11vS8M3qg80igomFep7cqbljv43OXhAstd8FQyUDLx25QJewbSH8wrzqrkuNqSXxc2Y%2FsasElsMW3Xr8ZBdwmzQcQfeVA1CqVIuKAEYrXWcmmGmDO8SMYYXnUdWmwEw4dSYyQY6sAGeePfwZhueeMEhfNTulSGq1%2BCra8VKDAtc8zijhOfjMZylthb0rZXt0M2T4PVKyh3FqJcfcsweCU7AawAMZ%2BcQqqW6OFeqbAD%2FZEcMIpC0FNTIkYFnHPLVsC7OgLuGqL%2Fz7JzYaatTfUr5GAIu4Cj5VP5xAYCKobCDHEAPRUnBTnxQXRfuM9F5rcKJu4w0TBASAREESenQjA9Oy%2ByKvxXe3GVX5iJ2bivoJZHbUMZnIQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20251125T223840Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAUPUUPRWEV6MSDVBO%2F20251125%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=04d282046524ddc12f45ca41a6becb059c48b36f33d39f64dcff3ffd7cb36391&abstractId=5514199" class="pub-link" aria-label="Download PDF">PDF</a>
+                </div>
+            </article>
 
-            <div class="pub-item">
+            <article class="pub-item">
                 <h3>
-                    Between Formal Authority and Authority of Competence—The Mechanisms of Algorithmic Conformity
-                    <span class="badge">Best Paper</span>
+                    <a href="https://journals.aom.org/doi/abs/10.5465/AMPROC.2024.17831abstract" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        Between Formal Authority and Authority of Competence—The Mechanisms of Algorithmic Conformity
+                        <span class="badge">Best Paper</span>
+                    </a>
                 </h3>
                 <p class="venue">Academy of Management Proceedings, 2024</p>
                 <p class="authors">Yotam Liel &amp; Lior Zalmanson</p>
-            </div>
+                <div class="pub-links">
+                    <!--<a href="#" class="pub-link" aria-label="Download PDF">PDF</a>
+                    <a href="#" class="pub-link" aria-label="View presentation">Presentation</a>-->
+                </div>
+            </article>
 
-            <div class="pub-item">
+            <article class="pub-item">
                 <h3>
-                    Turning Off Your Better Judgment—Conformity to Algorithmic Recommendations
-                    <span class="badge">Best Paper</span>
+                    <a href="https://journals.aom.org/doi/abs/10.5465/AMPROC.2023.17622abstract" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        Turning Off Your Better Judgment—Conformity to Algorithmic Recommendations
+                        <span class="badge">Best Paper</span>
+                    </a>
                 </h3>
                 <p class="venue">Academy of Management Proceedings, 2023</p>
                 <p class="authors">Yotam Liel &amp; Lior Zalmanson</p>
-            </div>
+                <div class="pub-links">
+                    <!--<a href="#" class="pub-link" aria-label="Download PDF">PDF</a>
+                    <a href="#" class="pub-link" aria-label="View slides">Slides</a>-->
+                </div>
+            </article>
 
-            <div class="pub-item">
+            <article class="pub-item">
                 <h3>
-                    What if an AI Told You That 2+2 is 5? Conformity to Algorithmic Recommendations
-                    <span class="badge">Best Paper</span>
+                    <a href="https://aisel.aisnet.org/icis2020/ai_business/ai_business/11/" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        What if an AI Told You That 2+2 is 5? Conformity to Algorithmic Recommendations
+                        <span class="badge">Best Paper</span>
+                    </a>
                 </h3>
                 <p class="venue">International Conference on Information Systems (ICIS), 2020</p>
                 <p class="authors">Yotam Liel &amp; Lior Zalmanson</p>
-            </div>
+                <div class="pub-links">
+                    <a href="https://www.researchgate.net/profile/Lior-Zalmanson/publication/346641548_What_If_an_AI_Told_You_That_2_2_Is_5_Conformity_to_Algorithmic_Recommendations/links/651eb45bd717ef1293cedade/What-If-an-AI-Told-You-That-2-2-Is-5-Conformity-to-Algorithmic-Recommendations.pdf" class="pub-link" aria-label="Download PDF">PDF</a>
+                
+                </div>
+            </article>
         </section>
 
     </main>
 
-    <footer>
-        <p>© 2025 Yotam Liel. All Rights Reserved.</p>
+    <footer role="contentinfo">
+        <p>&copy; 2025 Yotam Liel. All Rights Reserved.</p>
     </footer>
 
-</body>
-</html>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    navMenu.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a link (mobile)
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
+                        navMenu.classList.remove('active');
